@@ -32,7 +32,7 @@ void thread(void *givenName) {
     int givenID = (intptr_t)givenName;
     threadID = gettid();
     printf("\tthread🦖🦕%02d is here.\n", givenID);
-    printf("\tmy pid is %ld and my tid is %ld\n", (long)getpid(), gettid());
+    printf("\tmy pid is %ld and my tid is %ld\n", (long)getpid(), threadID);
     sprintf(name, "🦖🦕###%02d###", givenID);
     sleep(1);
     printf("\tmy name is %s\n", name);
