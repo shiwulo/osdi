@@ -20,6 +20,7 @@ long gettid() {
     return (long int)syscall(__NR_gettid);
 }
 
+//注意，我使用了「volatile」
 volatile long score[100];
 
 void thread(void *givenName) {
@@ -27,6 +28,9 @@ void thread(void *givenName) {
     struct drand48_data r_data;
     double x, y, dist;
     srand48_r((long)givenName, &r_data);
+    drand48_r(&r_data, &x);
+    //底下這一行是除錯用，我要確認每個thread的reandom stream是完全不同的
+    printf("%f, ", x);
     for (int i=0; i< loopCount; i++) {
         drand48_r(&r_data, &x);
         drand48_r(&r_data, &y);
@@ -52,6 +56,7 @@ int main(int argc, char **argv) {
     for (int i=0; i< numCPU; i++) {
         total += score[i];
     }
-    printf("%ld\n", total);
+    //這一行讓我知道飛鏢射中幾次，除錯用
+    printf("\n%ld\n", total);
     printf("pi = %f\n", ((double)total)/(loopCount*numCPU)*4);
 }
