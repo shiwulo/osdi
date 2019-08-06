@@ -17,16 +17,8 @@ long gettid() {
     return (long int)syscall(__NR_gettid);
 }
 
-long timespec2nano(struct timespec ts) {
-    return ts.tv_sec * 1000000000 + ts.tv_nsec;
-}
-
 __thread char name[100];
-__thread int threadID = -1;
-
-void sigAlarm(int signo) {
-    printf("my name is %s\n", name);
-}
+__thread long threadID = -1;
 
 void thread(void *givenName) {
     int givenID = (intptr_t)givenName;
@@ -39,12 +31,8 @@ void thread(void *givenName) {
 }
 
 int main(int argc, char **argv) {
-
     exename = argv[0];
     numCPU = sysconf( _SC_NPROCESSORS_ONLN );
-
-    signal(SIGALRM, sigAlarm);
-
     pthread_t* tid = (pthread_t*)malloc(sizeof(pthread_t) * numCPU);
 
     printf("I am main funciton, my pid is %ld ", (long)getpid());
