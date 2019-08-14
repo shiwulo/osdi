@@ -26,8 +26,9 @@ int main(int argc, char** argv) {
         }
     }
     if ((perfId = vfork()) == 0) {
-        sprintf(strbuf, "perf record -e context-switches,cache-references,cache-misses,mem_inst_retired.lock_loads,offcore_response.demand_data_rd.l3_hit.any_snoop,mem_load_retired.l3_hit,instructions,cycles
- -p ");
+        sprintf(strbuf, "perf record -e context-switches,cache-references,"
+        "cache-misses,mem_inst_retired.lock_loads,offcore_response.demand_data_rd.l3_hit.any_snoop,"
+        "mem_load_retired.l3_hit,instructions,cycles -p ");
         for (int i=0; i< nMatrixChild; i++)
             sprintf(strbuf+strlen(strbuf), "%d,", matrixChildId[i]);
         strbuf[strlen(strbuf)-1] = 0;
@@ -40,7 +41,7 @@ int main(int argc, char** argv) {
     long totalVoluntaryCtxSw=0;
     long totalInVoluntaryCtxSw=0;
     for (int i=0; i< nMatrixChild; i++) {
-        wait3(&wstatus, 0, &res);
+        wait4(matrixChildId[i],&wstatus, 0, &res);
         totalVoluntaryCtxSw += res.ru_nvcsw;
         totalInVoluntaryCtxSw += res.ru_nivcsw;
     }
