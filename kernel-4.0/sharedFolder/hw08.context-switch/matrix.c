@@ -22,11 +22,13 @@ int main(int argc, char** argv) {
     CPU_SET(0, &set);
     sched_setaffinity(getpid(), sizeof(set), &set);
     signal(SIGALRM, sigHandler);
-    alarm(5);
+    
     if (argc == 2) {
         int sec;
         sscanf(argv[1], "%d", &sec);
         alarm(sec);
+    } else {
+        alarm(5);
     }
     //printf("sizeof(matrix)=%.2f M\n", ((double)sizeof(matrix))/1024/1024);
     long long run=0;
