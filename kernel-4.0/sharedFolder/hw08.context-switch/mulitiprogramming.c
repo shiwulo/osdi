@@ -21,8 +21,15 @@ int main(int argc, char** argv) {
         exit(0);
     }
     for (int i=0; i< nMatrixChild; i++) {
+        char* matrix_para[3];
+        matrix_para[0] = "./matrix";
+        if (argc == 3)
+            matrix_para[1] = argv[2];
+        else
+            matrix_para[1] = "10";
+        matrix_para[2] = NULL;
         if ((matrixChildId[i] = fork()) == 0) {
-            execvp("./matrix", &argv[2]);
+            execvp("./matrix", matrix_para);
         }
     }
     if ((perfId = vfork()) == 0) {
@@ -55,5 +62,5 @@ int main(int argc, char** argv) {
         sscanf(resultStr, "%lld", &tmp); 
         totalOps += tmp;
     }
-    printf("總共運算次數 %f\n", ((double)totalOps)/1000000);
+    printf("所有task的總共運算次數 %f\n", ((double)totalOps)/1000000);
 }

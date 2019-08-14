@@ -22,10 +22,11 @@ int main(int argc, char** argv) {
     CPU_SET(0, &set);
     sched_setaffinity(getpid(), sizeof(set), &set);
     signal(SIGALRM, sigHandler);
+    printf("%s: argc = %d, argv[1]=%s secs\n",argv[0], argc, argv[1]);
     
     if (argc == 2) {
         int sec;
-        sscanf(argv[1], "%d", &sec);
+        sscanf(argv[1], "%d\n", &sec);
         alarm(sec);
     } else {
         alarm(5);
