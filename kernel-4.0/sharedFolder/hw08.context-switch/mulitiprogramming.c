@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     pid_t matrixChildId[10000], perfId;
     char strbuf[1000]={0};
     FILE* resultFile = fopen("./result.data", "w+");
-    if (argc == 2)
+    if (argc >= 2)
         sscanf(argv[1], "%d", &nMatrixChild);
     else {
         printf("execfile num_of_chld\n");
