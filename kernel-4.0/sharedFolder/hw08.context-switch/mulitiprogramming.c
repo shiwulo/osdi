@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         }
     }
     if ((perfId = vfork()) == 0) {
-        sprintf(strbuf, "perf record -e context-switches,cache-references,"
+        sprintf(strbuf, "perf stat -e context-switches,cache-references,"
         "cache-misses,mem_inst_retired.lock_loads,offcore_response.demand_data_rd.l3_hit.any_snoop,"
         "mem_load_retired.l3_hit,instructions,cycles -p ");
         for (int i=0; i< nMatrixChild; i++)
