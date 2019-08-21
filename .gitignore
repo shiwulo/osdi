@@ -68,3 +68,5 @@ kernel-4.0/sharedFolder/hw03.syscall.asm/syscall
 kernel-4.0/sharedFolder/hw04.syscall.kernel/syscall
 kernel-4.0/sharedFolder/hw05.pthread/pthread-create
 kernel-4.0/vmlinux
+kernel-4.0/sharedFolder/hw08.context-switch/mulitiprogramming
+kernel-4.0/sharedFolder/hw08.context-switch/matrix
